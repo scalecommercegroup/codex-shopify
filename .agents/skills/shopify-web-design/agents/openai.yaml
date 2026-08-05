@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shopify Web Design"
+  short_description: "Build consistent, accessible Shopify storefronts"
+  default_prompt: "Use $shopify-web-design to design, implement, and verify this Shopify storefront change."

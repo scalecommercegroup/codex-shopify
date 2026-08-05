@@ -1,0 +1,8 @@
+# Implementation log
+
+Record blockers, skipped checks, provisional destinations and important maintenance decisions here. Resolve entries explicitly instead of deleting their history.
+
+| ID | Date | Area | Status | Finding or change | Reason / evidence | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+| CS-001 | 2026-08-05 | Repository package | Completed | Added the shared `AGENTS.md`, `shopify-web-design` skill, references, safe installers and zero-to-working developer documentation. | The official Codex skill validator passed. Both PowerShell and Bash installers were syntax-checked and executed successfully against temporary targets; overwrite/refusal behavior was also verified in PowerShell. | Keep official setup requirements and links current when Codex or Shopify changes their installation flow. |
+| CS-002 | 2026-08-05 | GitHub publication | Resolved 2026-08-05 | `aldinhro` was added as a collaborator with write access to `scalecommercegroup/codex-shopify`. | GitHub reports `viewerPermission: WRITE` for the active account, allowing the validated package to be published. | Use normal branch and pull-request review for future standards updates. |
