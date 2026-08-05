@@ -3,7 +3,8 @@
 A reusable Codex setup for Shopify theme and ecommerce storefront development. It combines:
 
 - durable repository rules in `AGENTS.md`;
-- a custom `shopify-web-design` skill for design systems, responsive ecommerce UX, accessibility and QA;
+- a `shopify-web-design` skill for design systems, responsive ecommerce UX, accessibility and QA;
+- a `semantic-html-seo` skill for semantic markup, people-first content, metadata ownership, internal links, and structured-data safeguards;
 - Shopify's official AI Toolkit for current Liquid, API, schema and validation knowledge;
 - a safe workflow for local theme development, previews, Git review and handoff.
 
@@ -19,13 +20,14 @@ codex-shopify/
 |-- README.md
 |-- .agents/
 |   `-- skills/
+|       |-- semantic-html-seo/
+|       |   |-- SKILL.md
+|       |   |-- agents/openai.yaml
+|       |   `-- references/
 |       `-- shopify-web-design/
 |           |-- SKILL.md
 |           |-- agents/openai.yaml
 |           `-- references/
-|               |-- design-system.md
-|               |-- qa-checklist.md
-|               `-- shopify-storefront.md
 `-- scripts/
     |-- install.ps1
     `-- install.sh
@@ -37,12 +39,13 @@ Use all three layers:
 
 1. Install Codex.
 2. Install Shopify's official AI Toolkit plugin in Codex.
-3. Copy this repository's `AGENTS.md` and `shopify-web-design` skill into the Shopify theme repository.
+3. Copy this repository's `AGENTS.md` and bundled skills into the Shopify theme repository.
 
-The official Shopify plugin and the custom skill are not substitutes for one another:
+The official Shopify plugin and the bundled skills are not substitutes for one another:
 
 - Shopify's plugin supplies current documentation, API schemas and Shopify-specific validation.
 - `shopify-web-design` supplies the design-system, ecommerce UX, responsive, accessibility and evidence-based QA workflow.
+- `semantic-html-seo` supplies the semantic HTML, content hierarchy, on-page SEO, metadata ownership and structured-data workflow.
 - `AGENTS.md` keeps the non-negotiable project rules active on every task.
 
 ## Zero-to-working installation
@@ -182,12 +185,12 @@ The installer copies:
 
 ```text
 AGENTS.md
-.agents/skills/shopify-web-design/**
+.agents/skills/**
 ```
 
-It deliberately refuses to overwrite an existing, different `AGENTS.md` or an existing `shopify-web-design` skill. If either exists, review and merge the files manually instead of erasing project-specific rules.
+It deliberately refuses to overwrite an existing, different `AGENTS.md` or any existing bundled skill. If a conflict exists, review and merge the files manually instead of erasing project-specific rules.
 
-Manual installation is also valid: copy `AGENTS.md` and the complete `.agents/skills/shopify-web-design` directory into the target repository root.
+Manual installation is also valid: copy `AGENTS.md` and the complete `.agents/skills` directory into the target repository root.
 
 Commit both paths to the Shopify project's Git repository so every developer uses the same version.
 
@@ -203,9 +206,10 @@ Confirm that Codex reports:
 
 - the repository's `AGENTS.md`;
 - `shopify-web-design`;
+- `semantic-html-seo`;
 - Shopify's official skills, including `shopify-liquid`, `shopify-admin` and `shopify-custom-data`.
 
-If using the CLI, `/skills` shows discovered skills. Explicitly typing `$shopify-web-design` in a prompt should also invoke the custom skill.
+If using the CLI, `/skills` shows discovered skills. Explicitly typing `$shopify-web-design` or `$semantic-html-seo` in a prompt should invoke the relevant bundled skill.
 
 ## Connect a Shopify theme
 
@@ -282,7 +286,7 @@ Use the existing design system and real product data. Work only on the unpublish
 theme. Test filters, sorting, product cards and empty results. Do not publish.
 ```
 
-For Liquid implementation, Codex should combine `shopify-web-design` with `shopify-liquid`. For metafields or metaobjects, it must use `shopify-custom-data` first. For Admin GraphQL design, it should use `shopify-admin`.
+For custom sections and content, Codex should combine `shopify-web-design`, `semantic-html-seo`, and `shopify-liquid`. For metafields or metaobjects, it must use `shopify-custom-data` first. For Admin GraphQL design, it should use `shopify-admin`.
 
 ## Required validation before handoff
 
@@ -310,7 +314,7 @@ Pull the latest standards repository:
 git pull --ff-only
 ```
 
-Then review the changes before merging them into a Shopify project. Do not blindly overwrite a client-specific `AGENTS.md`. The custom skill can normally be replaced as a complete directory after reviewing its diff.
+Then review the changes before merging them into a Shopify project. Do not blindly overwrite a client-specific `AGENTS.md`. Each bundled skill can normally be replaced as a complete directory after reviewing its diff.
 
 ## Security rules
 
@@ -324,12 +328,13 @@ Then review the changes before merging them into a Shopify project. Do not blind
 
 ## Troubleshooting
 
-### The custom skill is missing
+### A bundled skill is missing
 
 Confirm this exact path exists inside the Shopify repository:
 
 ```text
 .agents/skills/shopify-web-design/SKILL.md
+.agents/skills/semantic-html-seo/SKILL.md
 ```
 
 Then open Codex from the repository root and start a new session.

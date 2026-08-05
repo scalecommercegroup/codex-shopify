@@ -6,6 +6,8 @@ Apply these instructions to every Shopify theme, ecommerce storefront, landing p
 
 Use `$shopify-web-design` for storefront design, implementation, redesign, review, responsive work, navigation, component-library, collection, product, search, cart, footer, accessibility, performance, or conversion tasks. If the skill is not automatically available, read `.agents/skills/shopify-web-design/SKILL.md` before acting.
 
+Use `$semantic-html-seo` whenever creating, editing, reviewing, or auditing custom sections, blocks, page content, headings, navigation, breadcrumbs, forms, internal links, metadata, structured data, or other indexable markup. If the skill is not automatically available, read `.agents/skills/semantic-html-seo/SKILL.md` before acting.
+
 ## Authority and intent
 
 - Follow the latest explicit user request first, then approved briefs or wireframes, then the established project design system, then framework/theme defaults.
@@ -15,7 +17,7 @@ Use `$shopify-web-design` for storefront design, implementation, redesign, revie
 
 ## Required workflow
 
-1. Inspect the existing implementation, target route/template, active design tokens, reusable components, content source, and mobile behavior before editing.
+1. Inspect the existing implementation, target route/template, rendered document outline, active metadata and structured data, design tokens, reusable components, content source, and mobile behavior before editing.
 2. Confirm the exact target theme, branch, environment, or deployment. Work on a duplicate, development, or unpublished theme unless the user explicitly authorizes production.
 3. Identify the page's primary audience, primary task, primary CTA, supporting CTA, trust needs, and next logical destination.
 4. Reuse or extend the component library and design tokens. Do not create page-specific copies of shared patterns without a documented reason.
@@ -67,6 +69,7 @@ Use `$shopify-web-design` for storefront design, implementation, redesign, revie
 - Use Shopify image filters with responsive widths, intrinsic dimensions, meaningful alt text, and appropriate loading priority. Use SVG for logos and simple brand marks.
 - Keep customer-facing strings localized. Do not allow English theme defaults to leak into a Swedish or otherwise localized storefront.
 - Preserve one H1 per page, logical headings, canonical URLs, useful metadata, breadcrumb integrity, and valid structured data based only on visible verified facts.
+- Keep document-level metadata and page-level schema in the page layout or template. Ordinary reusable sections must not emit their own canonical, robots, hreflang, broad page schema, or default H1.
 - Treat search, variant selection, add-to-cart, cart drawer, discounts, price/tax labels, stock messaging, filters, pagination, account links, forms, and checkout handoff as critical flows.
 - For Admin API bulk writes: export a backup, generate a deterministic dry run, change only matching records and fields, inspect user errors, then re-export and verify the result.
 - Never publish a theme, remove production data, or broaden a bulk mutation without explicit authorization.
@@ -82,6 +85,8 @@ A change is not complete until the relevant checks pass:
 - No broken or provisional CTA unless it is explicitly logged.
 - Search, variant, add-to-cart, cart drawer, filtering, forms, and navigation tested when affected.
 - Images checked for crop, sharpness, alt text, sizing, and loading priority.
+- Rendered HTML checked for one clear page H1, logical headings and landmarks, correct link-versus-button semantics, unique IDs, and no empty semantic regions.
+- Metadata and structured data checked for correct ownership, verified visible facts, and no duplicate entities emitted by the theme, apps, sections, or tag manager.
 - Console checked for new errors and obvious performance regressions.
 - Blockers, deliberate omissions, missing content, schema gaps, and verification limits recorded in `IMPLEMENTATION_LOG.md` when that file exists.
 

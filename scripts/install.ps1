@@ -8,7 +8,12 @@ $ErrorActionPreference = 'Stop'
 
 $sourceRoot = Split-Path -Parent $PSScriptRoot
 $sourceAgentsFile = Join-Path $sourceRoot 'AGENTS.md'
-$sourceSkill = Join-Path $sourceRoot '.agents\skills\shopify-web-design'
+$sourceSkillsRoot = Join-Path $sourceRoot '.agents\skills'
+$sourceSkills = @(Get-ChildItem -LiteralPath $sourceSkillsRoot -Directory)
+
+if ($sourceSkills.Count -eq 0) {
+    throw "No bundled skills were found at $sourceSkillsRoot."
+}
 
 if (-not (Test-Path -LiteralPath $TargetPath -PathType Container)) {
     throw "Target directory does not exist: $TargetPath"
@@ -17,7 +22,6 @@ if (-not (Test-Path -LiteralPath $TargetPath -PathType Container)) {
 $targetRoot = (Resolve-Path -LiteralPath $TargetPath).Path
 $targetAgentsFile = Join-Path $targetRoot 'AGENTS.md'
 $targetSkillsRoot = Join-Path $targetRoot '.agents\skills'
-$targetSkill = Join-Path $targetSkillsRoot 'shopify-web-design'
 
 if (Test-Path -LiteralPath $targetAgentsFile -PathType Leaf) {
     $sourceHash = (Get-FileHash -LiteralPath $sourceAgentsFile -Algorithm SHA256).Hash
@@ -27,8 +31,11 @@ if (Test-Path -LiteralPath $targetAgentsFile -PathType Leaf) {
     }
 }
 
-if (Test-Path -LiteralPath $targetSkill) {
-    throw "The target skill already exists at $targetSkill. Review and update it manually; this installer will not overwrite it."
+foreach ($sourceSkill in $sourceSkills) {
+    $targetSkill = Join-Path $targetSkillsRoot $sourceSkill.Name
+    if (Test-Path -LiteralPath $targetSkill) {
+        throw "The target skill already exists at $targetSkill. Review and update it manually; this installer will not overwrite it."
+    }
 }
 
 if ($PSCmdlet.ShouldProcess($targetRoot, 'Install Codex Shopify standards')) {
@@ -37,8 +44,11 @@ if ($PSCmdlet.ShouldProcess($targetRoot, 'Install Codex Shopify standards')) {
     }
 
     New-Item -ItemType Directory -Path $targetSkillsRoot -Force | Out-Null
-    Copy-Item -LiteralPath $sourceSkill -Destination $targetSkill -Recurse
+    foreach ($sourceSkill in $sourceSkills) {
+        $targetSkill = Join-Path $targetSkillsRoot $sourceSkill.Name
+        Copy-Item -LiteralPath $sourceSkill.FullName -Destination $targetSkill -Recurse
+    }
 
-    Write-Output "Installed AGENTS.md and shopify-web-design into: $targetRoot"
-    Write-Output 'Start a new Codex session from the target repository root to load the skill.'
+    Write-Output "Installed AGENTS.md and $($sourceSkills.Count) bundled skill(s) into: $targetRoot"
+    Write-Output 'Start a new Codex session from the target repository root to load the skills.'
 }

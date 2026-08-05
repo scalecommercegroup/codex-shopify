@@ -1,0 +1,4 @@
+interface:
+  display_name: "Semantic HTML & SEO"
+  short_description: "Build semantic, search-ready web content"
+  default_prompt: "Use $semantic-html-seo to create this section with valid semantic HTML, clear content hierarchy, and evidence-based SEO."

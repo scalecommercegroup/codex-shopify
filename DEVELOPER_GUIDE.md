@@ -2,7 +2,7 @@
 
 Start with [README.md](README.md) for the complete zero-to-working installation. This reference explains how the package is structured and used after installation.
 
-This package gives Codex durable project rules plus a reusable Shopify/ecommerce design workflow. Use it for Shopify theme work, page design, responsive fixes, component libraries, navigation, product and collection pages, search, cart, forms, accessibility, performance, and QA.
+This package gives Codex durable project rules plus reusable Shopify design and semantic HTML/SEO workflows. Use it for Shopify theme work, page design, custom sections, content structure, responsive fixes, component libraries, navigation, product and collection pages, search, cart, forms, accessibility, performance, SEO, and QA.
 
 ## 1. What is included
 
@@ -11,6 +11,11 @@ project-root/
 ├── AGENTS.md
 └── .agents/
     └── skills/
+        ├── semantic-html-seo/
+        │   ├── SKILL.md
+        │   ├── agents/
+        │   │   └── openai.yaml
+        │   └── references/
         └── shopify-web-design/
             ├── SKILL.md
             ├── agents/
@@ -34,9 +39,15 @@ The skill contains the reusable workflow. Codex first sees its name and descript
 
 The detailed reference files load only when relevant. This keeps ordinary tasks from receiving the entire design handbook every time.
 
+### `semantic-html-seo` skill
+
+This skill is the reusable semantic markup and SEO workflow. Codex loads it automatically when creating or changing custom sections, blocks, indexable page content, headings, navigation, internal links, metadata, breadcrumbs, or structured data. You can also invoke it explicitly with `$semantic-html-seo`.
+
+It defines ownership boundaries so reusable sections do not accidentally duplicate page metadata, H1 elements, canonicals, or schema already emitted by the theme or an app.
+
 ### Official Shopify skills
 
-This custom skill complements the official installed Shopify skills; it does not replace or bundle them:
+These bundled skills complement the official installed Shopify skills; they do not replace or bundle them:
 
 - `shopify-liquid`: Liquid, sections, blocks, schema, and theme validation;
 - `shopify-admin`: Admin GraphQL design;
@@ -55,13 +66,13 @@ Copy these into the root of the Shopify repository:
 
 ```text
 AGENTS.md
-.agents/skills/shopify-web-design/
+.agents/skills/
 ```
 
 Important:
 
 - `.agents` is a hidden directory on some systems. Make sure it is included.
-- Copy the complete skill directory, including `agents/openai.yaml` and all references.
+- Copy both complete skill directories, including each `agents/openai.yaml` file and all references.
 - If the destination already has an `AGENTS.md`, merge the rules deliberately. Do not overwrite project-specific instructions blindly.
 - Do not copy API keys, store passwords, access tokens, private exports, or client secrets with the package.
 
@@ -71,7 +82,7 @@ The following should be versioned together:
 
 ```text
 AGENTS.md
-.agents/skills/shopify-web-design/**
+.agents/skills/**
 ```
 
 This allows changes to be reviewed in pull requests and keeps the whole team on the same standard.
@@ -94,26 +105,29 @@ Confirm that the response mentions:
 
 - the root `AGENTS.md`;
 - `shopify-web-design`;
+- `semantic-html-seo`;
 - `shopify-liquid`;
 - `shopify-admin`;
 - `shopify-custom-data`.
 
-In Codex CLI, you can also use `/skills` or type `$shopify-web-design` in a prompt. The desktop app exposes discovered skills in its Skills interface.
+In Codex CLI, you can also use `/skills` or type `$shopify-web-design` or `$semantic-html-seo` in a prompt. The desktop app exposes discovered skills in its Skills interface.
 
 ## 3. Optional installation: personal/global
 
-Use this only when a repository does not ship the skill and one developer wants it available across projects.
+Use this only when a repository does not ship the skills and one developer wants them available across projects.
 
-On Windows, copy the skill directory to:
+On Windows, copy each skill directory to:
 
 ```text
 %USERPROFILE%\.agents\skills\shopify-web-design\
+%USERPROFILE%\.agents\skills\semantic-html-seo\
 ```
 
 On macOS or Linux:
 
 ```text
 ~/.agents/skills/shopify-web-design/
+~/.agents/skills/semantic-html-seo/
 ```
 
 For personal rules that should apply to every repository, use:
@@ -167,14 +181,14 @@ $shopify-web-design Redesign the desktop header and mega-menu. Keep search promi
 ```
 
 ```text
-$shopify-web-design Build a reusable Shopify section for service cards. Use blocks, approved spacing tokens, localized strings and accessible focus states.
+$shopify-web-design $semantic-html-seo Build a reusable Shopify section for service cards. Use blocks, approved spacing tokens, localized strings, a logical heading outline, useful internal links, and accessible focus states.
 ```
 
 ```text
 $shopify-web-design Review this product page against the QA checklist. Diagnose problems first and do not implement fixes until I confirm.
 ```
 
-For Liquid implementation, mention both the goal and the platform context. Codex should automatically combine the custom design workflow with `shopify-liquid`.
+For custom-section or content implementation, mention both the goal and the platform context. Codex should automatically combine `shopify-web-design` and `semantic-html-seo` with `shopify-liquid`.
 
 For metafields or metaobjects, state that explicitly. Codex must use `shopify-custom-data` first.
 
@@ -185,14 +199,15 @@ For catalog or Admin API operations, describe the exact records and fields in sc
 For a normal Shopify design/build task, Codex should:
 
 1. Read applicable `AGENTS.md` instructions.
-2. Load `shopify-web-design` and the relevant official Shopify skill.
-3. Inspect the existing theme, components, design tokens, real content, and rendered page.
+2. Load `shopify-web-design`, `semantic-html-seo` when custom sections or content are affected, and the relevant official Shopify skill.
+3. Inspect the existing theme, components, design tokens, real content, rendered document outline, metadata, and structured data.
 4. Confirm the target theme/environment and avoid production publication unless authorized.
-5. Implement reusable sections, blocks, snippets, settings, and tokens instead of page-specific patches.
+5. Implement reusable sections, blocks, snippets, settings, and tokens with semantic markup, correct metadata/schema ownership, and no page-specific patches.
 6. Review mobile first, then tablet, short laptop, and wide desktop.
 7. Test affected commerce interactions such as variants, search, filters, quick add, cart drawer, forms, and checkout handoff.
 8. Run Shopify Theme Check or the relevant validator.
-9. Report completed changes, evidence, skipped checks, blockers, provisional links, and next actions.
+9. Verify headings, landmarks, links, metadata, and structured data when affected.
+10. Report completed changes, evidence, skipped checks, blockers, provisional links, and next actions.
 
 A successful API call or build command does not prove the storefront works. The expected visible interface state must also be verified.
 
@@ -235,6 +250,7 @@ Check:
 
 ```text
 .agents/skills/shopify-web-design/SKILL.md
+.agents/skills/semantic-html-seo/SKILL.md
 ```
 
 Then verify:

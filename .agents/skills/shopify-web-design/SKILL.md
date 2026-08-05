@@ -127,6 +127,7 @@ Report:
 
 Use this skill as the design and QA layer. Pair it with:
 
+- `semantic-html-seo` whenever creating or changing custom sections, page content, headings, internal links, metadata, breadcrumbs, or structured data;
 - `shopify-liquid` for Liquid objects, schema, and theme-code validation;
 - `shopify-admin` for Admin GraphQL design;
 - `shopify-custom-data` before metafield or metaobject work;
