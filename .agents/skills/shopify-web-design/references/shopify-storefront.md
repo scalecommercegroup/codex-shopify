@@ -56,7 +56,9 @@
 ### Design tokens
 
 - Extend theme settings or the existing CSS variable layer rather than hardcoding section-specific colors and typography.
-- If merchants can choose colors, constrain combinations or test every permitted foreground/background pair.
+- Prefer merchant-selectable color schemes containing an approved surface and all compatible foreground tokens. Avoid separate unrestricted text and background pickers.
+- If merchants can choose colors independently, test every permitted foreground/background pair and state or add validation/fallback behavior that prevents failing combinations.
+- Confirm light sections render dark text and dark sections render light text across headings, body copy, links, buttons, badges, forms, icons, borders, and focus indicators. Do not depend on inherited colors when sections can be reordered.
 - Store spacing modes as named options such as compact, standard, and spacious, mapped to tokens.
 
 ## 4. Collection and product systems

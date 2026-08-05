@@ -99,9 +99,22 @@ Use tokens through CSS custom properties or theme settings. Do not create 18px, 
 - Use semantic color roles, not names such as `red-2` inside components.
 - Limit neutral surfaces. Page, surface, and border are normally sufficient; many near-identical grays make a storefront look accidental.
 - Reserve the primary action color for buttons, active states, meaningful links, and commercial emphasis.
-- Meet WCAG 2.2 AA: 4.5:1 for normal text, 3:1 for qualifying large text, and 3:1 for meaningful UI boundaries and icons.
+- Meet WCAG 2.2 AA for the final rendered pair: 4.5:1 for normal text; 3:1 for text at least 24px regular or about 18.66px bold; and 3:1 for meaningful UI boundaries, focus indicators, and icons.
+- Treat color as approved pairs, not independent swatches. Every light surface needs explicit dark foreground tokens, and every dark surface needs explicit light foreground tokens.
+- Define compatible primary text, muted text, link, link-hover, icon, border, input, button, badge, and focus-ring colors for each page, surface, brand, inverse, and overlay scheme.
+- Test every permitted pairing and state. A color that passes on the page background may fail inside a card, button, announcement bar, footer, drawer, or selected filter.
+- Do not rely on `color: inherit`, browser defaults, or a component's previous context when the component can move between light and dark sections.
 - Validate text over the darkest or lightest real image area, not an average background.
+- Compute the final composited colors when opacity, alpha colors, gradients, blend modes, or overlays are used. Raw token contrast is insufficient when the rendered pixels differ.
 - Give hover, focus, selected, error, disabled, and success states explicit approved pairs.
+
+| Rendered content | Minimum contrast |
+| --- | ---: |
+| Normal text, including muted copy and placeholders | 4.5:1 |
+| Qualifying large text | 3:1 |
+| Meaningful icons, control boundaries, selected states, and focus indicators | 3:1 |
+
+Disabled controls are exempt from the WCAG contrast requirement, but keep them legible and clearly distinguishable when practical. Color must not be the only way to communicate state.
 
 ## 6. Components
 
@@ -173,6 +186,7 @@ Each section should define schema fields, content limits, missing-content behavi
 - Use one primary CTA for editorial slides. Use two only when paths are genuinely distinct.
 - Prefer real editorial images or product-in-use imagery. Do not upscale small catalog cutouts into photographic heroes.
 - Protect text contrast with composition, a solid text panel, or a reliable overlay.
+- Check the weakest real text/background area at every responsive crop. If a reliable minimum cannot be maintained, move the copy to a solid surface instead of increasing shadow effects until it appears readable.
 
 ### Homepage
 

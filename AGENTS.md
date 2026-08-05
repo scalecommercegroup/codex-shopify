@@ -36,6 +36,8 @@ Use `$semantic-html-seo` whenever creating, editing, reviewing, or auditing cust
 - Keep body copy around 60–75 characters per line, use comfortable line-height, and prevent headings from producing awkward single-word final lines when practical.
 - Use only the global primary, secondary, and text-link button variants. A section may not invent its own button treatment.
 - Use action colors for actions and states, not decoration. Text contrast must meet WCAG 2.2 AA.
+- Define and verify every allowed foreground/background pair, including dark text on light surfaces, light text on dark surfaces, muted copy, links, buttons, badges, icons, borders, focus indicators, overlays, and interaction states. Never rely on inherited or default colors to remain visible.
+- Measure the final rendered composite when opacity, gradients, images, overlays, or merchant-selectable color schemes are involved. Constrain theme settings to approved pairs when arbitrary combinations could create light-on-light or dark-on-dark text.
 - Align sections to the same container and grid. Misaligned edges, accidental double dividers, unexplained empty bands, and one-off negative margins are defects.
 
 ## Components and sections
@@ -86,6 +88,7 @@ A change is not complete until the relevant checks pass:
 - Search, variant, add-to-cart, cart drawer, filtering, forms, and navigation tested when affected.
 - Images checked for crop, sharpness, alt text, sizing, and loading priority.
 - Rendered HTML checked for one clear page H1, logical headings and landmarks, correct link-versus-button semantics, unique IDs, and no empty semantic regions.
+- Every rendered light, dark, brand, inverse, and image-overlay surface checked with its actual text, link, control, icon, border, and focus colors; all required WCAG 2.2 AA ratios pass in every affected state.
 - Metadata and structured data checked for correct ownership, verified visible facts, and no duplicate entities emitted by the theme, apps, sections, or tag manager.
 - Console checked for new errors and obvious performance regressions.
 - Blockers, deliberate omissions, missing content, schema gaps, and verification limits recorded in `IMPLEMENTATION_LOG.md` when that file exists.

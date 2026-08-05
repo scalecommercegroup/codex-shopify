@@ -67,6 +67,8 @@ Define or reuse:
 - section spacing modes;
 - focus, hover, active, loading, disabled, error, empty, and success states.
 
+For every surface token or color scheme, define its compatible foreground tokens explicitly: primary text, muted text, links, icons, borders, buttons, and focus indicators. Test light-on-dark and dark-on-light versions independently. Do not assume a foreground remains readable because it passed on another surface.
+
 Use the smallest number of variants that covers the real content. Do not expose arbitrary visual controls that allow merchants to dismantle hierarchy or accessibility.
 
 ### 4. Implement reusable, merchant-safe components
@@ -117,6 +119,7 @@ Report:
 - No fake facts, fake urgency, fake scarcity, placeholder reviews, or generic trust claims.
 - No full-viewport ecommerce hero by default.
 - No arbitrary spacing, font, color, border, button, or card style per section.
+- No unverified foreground/background combination, light-on-light or dark-on-dark text, unreadable muted copy, or text placed over media without a contrast-safe treatment.
 - No hidden focus state, hover-only disclosure, keyboard trap, or inaccessible overlay.
 - No distorted images, blurry upscales, unbounded media heights, or below-fold images loaded eagerly.
 - No hardcoded merchant content in reusable Shopify sections when a setting or resource is appropriate.

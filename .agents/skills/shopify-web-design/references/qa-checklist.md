@@ -45,6 +45,10 @@ Use the relevant checks before handoff. Mark anything untested as a verification
 
 - [ ] Normal text contrast is at least 4.5:1.
 - [ ] Qualifying large text and meaningful UI/icon contrast are at least 3:1.
+- [ ] Every affected light, dark, brand, inverse, card, drawer, footer, announcement-bar, and overlay surface uses an explicitly approved foreground set; no light-on-light or dark-on-dark text appears.
+- [ ] Headings, body text, muted text, placeholders, links, buttons, badges, prices, errors, icons, borders, and focus indicators pass on their actual backgrounds in default, hover, focus, active, selected, success, error, and unavailable states.
+- [ ] Transparency, gradients, images, blend modes, and overlays were checked using the final rendered composite; image text passes over the weakest area at every responsive crop.
+- [ ] Every merchant-selectable color scheme or permitted foreground/background combination was tested or safely constrained.
 - [ ] All interactive elements are keyboard reachable in logical order.
 - [ ] Visible `:focus-visible` is present and not clipped.
 - [ ] Links navigate and buttons act; no fake button/link semantics.
